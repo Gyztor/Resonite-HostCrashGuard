@@ -28,6 +28,9 @@ public class HostCrashGuard : ResoniteMod {
 	[AutoRegisterConfigKey]
 	private static readonly ModConfigurationKey<float2> DialogSize = new ModConfigurationKey<float2>("Popup Size", "Changes the size of the network error popup.", () => new float2(300f, 250f));
 
+	[AutoRegisterConfigKey]
+	private static readonly ModConfigurationKey<bool> CatchHostDisconnect = new ModConfigurationKey<bool>("Catch Host Disconnects", "Stop remote disconnections from closing the world. (Kicks, some crashes)", () => true);
+
 	private static ModConfiguration Config;
 
 	public override void OnEngineInit() {
@@ -168,6 +171,9 @@ public class HostCrashGuard : ResoniteMod {
 			if (disconnectInfo.SocketErrorCode == SocketError.Success) {
 				if (disconnectInfo.Reason == DisconnectReason.Timeout) {
 					Fail("The network connection has timed out.", world, __instance);
+					return false;
+				}  else if (disconnectInfo.Reason == DisconnectReason.RemoteConnectionClose && Config.GetValue(CatchHostDisconnect)) {
+					Fail("The host has disconnected from your client.", world);
 					return false;
 				}
 			}
