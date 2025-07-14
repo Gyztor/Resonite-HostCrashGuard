@@ -17,7 +17,7 @@ public class HostCrashGuard : ResoniteMod {
 	public override string Name => "HostCrashGuard";
 	public override string Author => "__Choco__";
 	public override string Version => VERSION_CONSTANT;
-	public override string Link => "https://github.com/AwesomeTornado/Resonite-HostCrashGuard";
+	public override string Link => "https://github.com/Gyztor/Resonite-HostCrashGuard";
 
 	[AutoRegisterConfigKey]
 	private static readonly ModConfigurationKey<bool> NetworkPatchesEnabled = new ModConfigurationKey<bool>("Network Patches", "Enable all network crash fixes of this mod.", () => true);
