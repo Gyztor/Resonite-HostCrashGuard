@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout NML
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: setup build environment
         uses: Gyztor/reso-plugin-setup-action@master # This is where the Neos dependencies come from. Learn more at https://github.com/neos-modding-group/neos-plugin-setup-action
       - name: get NeosModLoader.dll
-        uses: dsaltares/fetch-gh-release-asset@1.0.0
+        uses: dsaltares/fetch-gh-release-asset@1.1.2
         with:
           repo: resonite-modding-group/ResoniteModLoader
           file: ResoniteModLoader.dll
@@ -24,7 +24,7 @@ jobs:
         run: dotnet build ./HostCrashGuard.sln --configuration Release "-property:CopyToMods=false"
       - name: upload workflow artifacts
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' # only publish workflow artifacts for pushes to master or tags
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ResoDesktopToolShortcutRemapper
           path: ./ResoDesktopToolShortcutRemapper/bin/Release/net462/DesktopToolShortcutRemapper.dll
