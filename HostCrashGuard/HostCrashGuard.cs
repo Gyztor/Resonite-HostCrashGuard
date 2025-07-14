@@ -173,7 +173,7 @@ public class HostCrashGuard : ResoniteMod {
 					Fail("The network connection has timed out.", world, __instance);
 					return false;
 				}  else if (disconnectInfo.Reason == DisconnectReason.RemoteConnectionClose && Config.GetValue(CatchHostDisconnect)) {
-					Fail("The host has disconnected from your client.", world);
+					Fail("The host has disconnected from your client.", world, __instance);
 					return false;
 				}
 			}
